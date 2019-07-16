@@ -111,6 +111,8 @@ public class Diagnostic_Wifi extends CordovaPlugin{
                 callbackContext.success();
             } else if(action.equals("isWifiAvailable")) {
                 callbackContext.success(isWifiAvailable() ? 1 : 0);
+            } else if(action.equals("is5GHzBandSupported")) {
+                callbackContext.success(is5GHzBandSupported() ? 1 : 0);
             } else if(action.equals("setWifiState")) {
                 setWifiState(args.getBoolean(0));
                 callbackContext.success();
@@ -130,7 +132,19 @@ public class Diagnostic_Wifi extends CordovaPlugin{
         boolean result = wifiManager.isWifiEnabled();
         return result;
     }
-
+    /**
+    * verify if device has 5GHz support >= API level 21
+    */
+    public boolean is5GHzBandSupported() {
+        WifiManager wifiManager = (WifiManager) this.cordova.getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        boolean result = false;
+        try {
+            result = wifiManager.is5GHzBandSupported();
+        } catch (Exception e){
+            diagnostic.handleError("Exception occurred: ".concat(e.getMessage()));
+        }
+        return result;
+    }
     public void switchToWifiSettings() {
         diagnostic.logDebug("Switch to Wifi Settings");
         Intent settingsIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
