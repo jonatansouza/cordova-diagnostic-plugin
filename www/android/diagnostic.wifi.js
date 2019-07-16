@@ -66,7 +66,7 @@ var Diagnostic_Wifi = (function(){
      * @param {Function} errorCallback -  The callback which will be called when the operation encounters an error.
      *  This callback function is passed a single string parameter containing the error message.
      */
-    Diagnostic_Wifi.is5GHzBandSupported = Diagnostic_Wifi.is5GHzBandSupported = function(successCallback, errorCallback) {
+    Diagnostic_Wifi.is5GHzBandSupported = function(successCallback, errorCallback) {
         return cordova.exec(successCallback,
             errorCallback,
             'Diagnostic_Wifi',
